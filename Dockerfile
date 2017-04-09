@@ -21,7 +21,7 @@ ADD hdhomerun.conf /etc/
 ADD install.sh /
 ADD hdhomerun_record_x64 /opt/hdhomerun/
 RUN bash /install.sh
-
+ADD supervisord.conf supervisord.conf
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
@@ -30,3 +30,5 @@ RUN bash /install.sh
 VOLUME /hdhomerun
 EXPOSE 65001/udp 65002
 
+CMD ["-n", "-c", "/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord"]
